@@ -25,4 +25,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if File.exists? afterScriptPath then
         config.vm.provision "shell", path: afterScriptPath
     end
+
+    if defined?(VagrantPlugins::HostsUpdater)
+        config.vm.network :private_network, ip: "192.168.10.10"
+        config.vm.hostname = "rainee.dev"
+        config.hostsupdater.aliases = ["pma.rainee.dev", "lottoist.rainee.dev"]
+    end
 end
